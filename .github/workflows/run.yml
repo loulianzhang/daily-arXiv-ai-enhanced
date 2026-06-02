@@ -236,6 +236,8 @@ jobs:
 
     - name: Commit code changes to main branch
       if: steps.dedup_check.outputs.has_new_content == 'true'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         git config --global user.email "${{ vars.EMAIL }}"
         git config --global user.name "${{ vars.NAME }}"
