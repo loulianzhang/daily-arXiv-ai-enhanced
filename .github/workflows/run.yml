@@ -260,8 +260,13 @@ jobs:
 
     - name: Push code changes to main branch
       if: steps.dedup_check.outputs.has_new_content == 'true'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # 设置Git配置以处理自动合并 / Set Git config for automatic merging
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git config user.name "github-actions[bot]"
+        git push origin main
         git config pull.rebase true
         git config rebase.autoStash true
         
